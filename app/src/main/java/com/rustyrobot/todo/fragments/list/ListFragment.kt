@@ -15,6 +15,9 @@ import com.rustyrobot.todo.data.viewmodel.ToDoViewModel
 import com.rustyrobot.todo.databinding.FragmentListBinding
 import com.rustyrobot.todo.fragments.SharedViewModel
 import com.rustyrobot.todo.fragments.list.adapter.ListAdapter
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
+import jp.wasabeef.recyclerview.animators.SlideInRightAnimator
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 class ListFragment : Fragment() {
 
@@ -77,6 +80,9 @@ class ListFragment : Fragment() {
     private fun setupRecyclerView() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+        binding.recyclerView.itemAnimator = SlideInUpAnimator().apply {
+            addDuration = 300
+        }
 
         swipeToDelete(binding.recyclerView)
     }
