@@ -2,6 +2,7 @@ package com.rustyrobot.todo.fragments.list.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.rustyrobot.todo.data.models.ToDoData
 import com.rustyrobot.todo.databinding.RowLayoutBinding
@@ -19,8 +20,10 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
     override fun getItemCount() = dataList.size
 
     fun setData(toDoData: List<ToDoData>) {
+        val toDoDiffUtil = ToDoDiffUtil(dataList, toDoData)
+        val toDoDiffResult = DiffUtil.calculateDiff(toDoDiffUtil)
         this.dataList = toDoData
-        notifyDataSetChanged()
+        toDoDiffResult.dispatchUpdatesTo(this)
     }
 
     class MyViewHolder(val binding: RowLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
