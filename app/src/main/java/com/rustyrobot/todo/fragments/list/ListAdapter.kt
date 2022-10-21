@@ -13,43 +13,11 @@ import com.rustyrobot.todo.databinding.RowLayoutBinding
 class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
     private var dataList = emptyList<ToDoData>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MyViewHolder(
-        RowLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-    )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MyViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = dataList[position]
-
-        holder.binding.titleText.text = currentItem.title
-        holder.binding.descriptionText.text = currentItem.description
-        holder.binding.rowBackground.setOnClickListener {
-            val action = ListFragmentDirections.actionListFragmentToUpdateFragment(currentItem)
-            holder.binding.root.findNavController().navigate(action)
-        }
-
-        when (currentItem.priority) {
-
-            Priority.HIGH -> {
-                holder.binding.priorityIndicator.setCardBackgroundColor(
-                    ContextCompat.getColor(
-                        holder.binding.root.context,
-                        R.color.red
-                    )
-                )
-            }
-            Priority.MEDIUM -> holder.binding.priorityIndicator.setCardBackgroundColor(
-                ContextCompat.getColor(
-                    holder.binding.root.context,
-                    R.color.yellow
-                )
-            )
-            Priority.LOW -> holder.binding.priorityIndicator.setCardBackgroundColor(
-                ContextCompat.getColor(
-                    holder.binding.root.context,
-                    R.color.green
-                )
-            )
-        }
+        holder.bind(currentItem)
     }
 
     override fun getItemCount() = dataList.size
@@ -59,6 +27,21 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
         notifyDataSetChanged()
     }
 
-    class MyViewHolder(val binding: RowLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    class MyViewHolder(val binding: RowLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(toDoData: ToDoData) {
+            binding.toDoData = toDoData
+            binding.executePendingBindings()
+        }
+
+        companion object {
+            fun from(parent: ViewGroup) = MyViewHolder(
+                RowLayoutBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+        }
+    }
 }

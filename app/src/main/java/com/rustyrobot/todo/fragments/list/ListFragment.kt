@@ -28,35 +28,23 @@ class ListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentListBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        binding.sharedViewModel = sharedViewModel
 
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+        setupRecyclerView()
+
         viewModel.getAllData.observe(viewLifecycleOwner) {
             sharedViewModel.checkIfDatabaseEmpty(it)
             adapter.setData(it)
         }
-
-        sharedViewModel.emptyDatabase.observe(viewLifecycleOwner) {
-            showEmptyDatabaseViews(it)
-        }
-
-        binding.floatingActionButton.setOnClickListener {
-            findNavController().navigate(R.id.action_listFragment_to_addFragment)
-        }
-
         setHasOptionsMenu(true)
 
         return binding.root
     }
 
-    private fun showEmptyDatabaseViews(emptyDatabase: Boolean) {
-        if (emptyDatabase) {
-            binding.imageViewNoData.visibility = View.VISIBLE
-            binding.textViewNoData.visibility = View.VISIBLE
-        } else {
-            binding.imageViewNoData.visibility = View.INVISIBLE
-            binding.textViewNoData.visibility = View.INVISIBLE
-        }
+    private fun setupRecyclerView() {
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
