@@ -1,17 +1,13 @@
-package com.rustyrobot.todo.fragments.list
+package com.rustyrobot.todo.fragments.list.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.rustyrobot.todo.R
-import com.rustyrobot.todo.data.models.Priority
 import com.rustyrobot.todo.data.models.ToDoData
 import com.rustyrobot.todo.databinding.RowLayoutBinding
 
 class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
-    private var dataList = emptyList<ToDoData>()
+    var dataList = emptyList<ToDoData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MyViewHolder.from(parent)
 

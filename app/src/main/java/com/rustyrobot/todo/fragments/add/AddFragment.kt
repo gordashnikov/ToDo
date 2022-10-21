@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.rustyrobot.todo.R
 import com.rustyrobot.todo.data.models.ToDoData
 import com.rustyrobot.todo.data.viewmodel.ToDoViewModel
@@ -51,10 +52,12 @@ class AddFragment : Fragment() {
         if (validation) {
             val newItem = ToDoData(0, title, sharedViewModel.parsePriority(priority), description)
             viewModel.insertData(newItem)
-            Toast.makeText(requireContext(), "Successfully added", Toast.LENGTH_LONG).show()
+            val snackBar = Snackbar.make(binding.root, "${newItem.title} saved", Snackbar.LENGTH_LONG)
+            snackBar.show()
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
         } else {
-            Toast.makeText(requireContext(), "The fields should not be blank", Toast.LENGTH_LONG).show()
+            val snackBar = Snackbar.make(binding.root, "Fields should not be blank", Snackbar.LENGTH_LONG)
+            snackBar.show()
         }
     }
     override fun onDestroy() {

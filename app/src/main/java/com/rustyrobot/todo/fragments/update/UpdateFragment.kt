@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import com.rustyrobot.todo.R
 import com.rustyrobot.todo.data.models.ToDoData
 import com.rustyrobot.todo.data.viewmodel.ToDoViewModel
@@ -67,12 +68,12 @@ class UpdateFragment : Fragment() {
                 description
             )
             viewModel.updateData(updatedItem)
-            Toast.makeText(requireContext(), "Successfully updated", Toast.LENGTH_LONG).show()
-
+            val snackBar = Snackbar.make(binding.root, "${updatedItem.title} updated", Snackbar.LENGTH_LONG)
+            snackBar.show()
             findNavController().navigate(R.id.action_updateFragment_to_listFragment)
         } else {
-            Toast.makeText(requireContext(), "The fields should not be blank", Toast.LENGTH_LONG)
-                .show()
+            val snackBar = Snackbar.make(binding.root, "Fields should not be blank", Snackbar.LENGTH_LONG)
+            snackBar.show()
         }
     }
 
@@ -80,8 +81,8 @@ class UpdateFragment : Fragment() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes") { _, _ ->
             viewModel.deleteItem(args.currentItem)
-            Toast.makeText(requireContext(), "${args.currentItem.title} deleted", Toast.LENGTH_LONG)
-                .show()
+            val snackBar = Snackbar.make(binding.root, "${args.currentItem.title} deleted", Snackbar.LENGTH_LONG)
+            snackBar.show()
             findNavController().navigate(R.id.action_updateFragment_to_listFragment)
         }
         builder.setNegativeButton("No") { _, _ -> }
