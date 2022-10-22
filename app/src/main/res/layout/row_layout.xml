@@ -15,7 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp">
+        android:layout_margin="2dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/row_background"
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
-                android:maxLength="20"
+                android:padding="2dp"
                 android:text="@{toDoData.title}"
                 android:textColor="@color/darkGray"
                 android:textSize="20sp"
@@ -66,9 +66,10 @@
                 android:layout_marginBottom="16dp"
                 android:maxLength="300"
                 android:maxLines="10"
+                android:padding="2dp"
                 android:text="@{toDoData.description}"
                 android:textColor="@color/darkGray"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
