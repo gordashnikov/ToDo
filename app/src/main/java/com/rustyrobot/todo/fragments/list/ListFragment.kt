@@ -57,8 +57,12 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_delete_all -> {
-                confirmAllItemsRemoval()
+            R.id.menu_delete_all -> confirmAllItemsRemoval()
+            R.id.menu_priority_high -> viewModel.sortByHighPriority.observe(this) {
+                adapter.setData(it)
+            }
+            R.id.menu_priority_low -> viewModel.sortByLowPriority.observe(this) {
+                adapter.setData(it)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -81,7 +85,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         binding.recyclerView.itemAnimator = SlideInUpAnimator().apply {
-            addDuration = 300
+            addDuration = 400
         }
 
         swipeToDelete(binding.recyclerView)

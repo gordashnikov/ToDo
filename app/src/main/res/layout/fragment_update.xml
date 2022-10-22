@@ -14,7 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="24dp"
+        android:padding="10dp"
         tools:context=".fragments.update.UpdateFragment">
 
         <EditText
@@ -23,6 +23,7 @@
             android:layout_height="60dp"
             android:background="@drawable/custom_input"
             android:hint="@string/title"
+            android:textColor="@color/black"
             android:inputType="textPersonName"
             android:paddingStart="24dp"
             android:paddingEnd="24dp"
@@ -56,6 +57,7 @@
             android:gravity="start|top"
             android:text="@{args.currentItem.description}"
             android:hint="@string/description"
+            android:textColor="@color/black"
             android:inputType="textMultiLine"
             android:paddingStart="24dp"
             android:paddingTop="16dp"
